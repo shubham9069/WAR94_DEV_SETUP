@@ -1,0 +1,46 @@
+
+
+.Auth-bottom{
+    height: 40dvh;
+    width: 100%;
+    display: flex;
+    position:absolute;
+    bottom:0;
+    left:0;
+    min-height: 200px;
+    
+}
+.Auth-bottom>div:nth-child(1){
+background-color: #5014D0;
+clip-path: polygon(0 0, 100% 52%, 100% 100%, 0% 100%);
+width: 50%;
+height: 100%;
+}
+.Auth-bottom>div:nth-child(2){
+background-color: #D9214E;
+clip-path: polygon(0 0, 100% 52%, 100% 100%, 0% 100%);
+width: 50%;
+height: 100%;
+transform: scaleX(-1);
+}
+.login-form{
+    display: flex;
+    width: 80%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    margin: 0 auto;
+    box-shadow: 0px 4px 100px rgba(0, 0, 0, 0.09);
+    border-radius: 20px;
+}
+.login-form>div{
+   flex:1;
+   width: 100%;
+   margin: 0 auto;
+}
+@media screen and (max-width:1000px) {
+    .login-form{
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,283 @@
+.widget-width{
+    width: 310px;
+    border-radius: 12px ;
+    height: 100%;
+    
+   
+}
+.widget-grid{
+    
+    display: grid;
+    place-items: center;
+ place-content: center;
+    grid-template-columns: repeat(2,1fr);
+}
+
+/* widhet 1 */
+.widget-container{
+    
+    display: flex;flex-direction: column;
+ 
+    
+    
+}
+.widget-container>div{
+    flex:1;
+    
+    
+}
+.widget-container>div:nth-child(1){
+    padding: 1.5rem 1.5rem; 
+    background-color: #5F5CF1;
+    border-radius: 12px 12px 0 0 ;
+
+}
+.widget-container>div:last-child{
+    padding: 0 1.5rem;
+    background-color: white;
+    border-radius:  0 0 12px 12px ;
+
+}
+.widget-box-section{
+    position: relative;
+    top:-50px;
+   
+    grid-gap:15px;
+   
+
+}
+
+.widget-box{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content:center;
+    flex-direction:column;
+    padding:1rem;
+    
+border-radius: 12px;
+}
+.widget-box-h5{
+   font-weight: 600;
+   margin-bottom: 5px;
+   line-height: 27px;
+   
+}
+.widget-box-span{
+    font-size:12px;
+    font-weight: 500;
+    line-height: 18px;
+ 
+}
+.exportbtn::before{
+    content: '';
+ position: absolute;
+height: 100%;
+width: 100%;
+top:0;
+left: 0;
+background: #FFFFFF;
+opacity: 0.12;
+
+border-radius: 6px
+}
+.exportbtn{
+    text-align: center;
+    position: relative;
+   padding:8px 10px;
+color:white;
+border-radius: 6px;
+font-size:12px
+}
+
+
+/* widget 2  */
+.widget2{
+    background-color: white;
+   
+    
+
+}
+.widget2>h5,.widget2>span{
+    padding:1.5rem 1.5rem 0  1.5rem;
+   
+    
+
+}
+.widget2-container{
+    
+    padding: 2rem 1.5rem;
+  
+   grid-gap:30px;
+   
+
+}
+
+.widget2-icon{
+    width: 44px;
+height: 44px;
+
+border-radius: 6px;
+}
+.widget2-icon i{
+ font-size: 20px;
+}
+
+
+.widget3::before{
+    content:" ";
+    position: absolute;
+    top:-8px;
+    left: 0;
+    height:15px;
+    width: 100%;
+    z-index: 0;
+    border-radius: 12px 12px 0 0 ;
+    background-color: white;
+
+}
+.widget3-box{
+    height: 100%;
+    grid-gap:30px
+}
+
+/* widget 5  */
+
+.widget5{
+    display: grid;
+    grid-gap:20px;
+   /* background-color:rgb(135, 135, 135)  */
+}
+.widget5-box{
+    border-radius: 12px;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color:white
+}
+
+.widget5-bottom{
+    background: #FE6777;
+border-radius: 20px;
+    padding:1.5rem
+}
+
+/* widget 6 */
+
+.widget6{
+    background:white;
+    position: relative;
+}
+.widget6::before{
+    content: " ";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    background: url("/public//images//Vector\ 27.png") no-repeat center;
+    background-size: cover;
+    z-index: 0;
+    border-radius: 12px;
+  }
+.widget6-container{
+    padding:1.5rem;
+    display: grid;
+    grid-gap:18px
+
+}
+.widget6-box{
+    grid-gap: 18px;
+}
+.widget6-box>div:nth-child(1){
+    width: 50px;
+height: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: #F3F6F9;
+border-radius: 6px;
+}
+.widget6-box>div:nth-child(2){
+   flex: 1;
+}
+.widget6-box>div:nth-child(3){
+    width: 41px;
+    height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: #F3F6F9;
+border-radius: 6px;
+}
+.widget6-bottom{
+    background: transparent;
+    padding-top: 1.5rem;
+    position: relative;
+    z-index: 1;
+   
+    
+  }
+
+
+.widget6-bottom>button{
+    width: 200px;
+    height: 38px;
+background: #1BC5BD;
+border-radius: 6px;
+font-size: 13px;
+color: white;
+border:none
+}
+
+/* widget7 */
+
+.widget7{
+    margin-top: 20px;
+    border-radius: 12px;
+    padding:1.5rem;
+    background: #F8F9FB;
+    display: flex;
+}
+.widget7>div:nth-child(1){
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(4 , 1fr);
+    width: 100%;
+}
+@media screen and (max-width:1000px) {
+    .widget7>div:nth-child(1){
+       
+        grid-template-columns: repeat(2 , 1fr);
+       
+    }
+    .widget7>div:nth-child(2){
+       display: none;
+    }
+}
+.pagination{
+    padding:2rem 0 1rem 0
+}
+.pagination>div{
+display: flex;
+grid-gap:5px;
+
+}
+
+.pagination-icon{
+    width: 28px;
+height: 28px;
+
+
+background: #FFFFFF;
+border-radius: 6px;
+display: flex;
+justify-content:center;
+align-items:center;
+}
+.pagination-icon i{
+ color:#7E8299 !important;
+ font-size:12px
+}
+    
