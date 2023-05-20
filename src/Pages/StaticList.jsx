@@ -290,7 +290,7 @@ Add Static-Content</button>
      {/* edit Details */}
      <Modal show={editModal} onHide={()=>setEditModal(false)} style={{backdropFilter: 'blur(8px)'}} size="xl">
         <Modal.Header closeButton>
-          <Modal.Title style={{fontSize:18,fontWeight:600,color:'#3F4254',letterSpacing:1}}>Static Details {editStaticList && (<span className="span-box">{staticData?.updated_at}</span>)}</Modal.Title>
+          <Modal.Title style={{fontSize:18,fontWeight:600,color:'#3F4254',letterSpacing:1}}>Static Details {editStaticList && (<span className="span-box">{staticData?.updated_atr  }</span>)}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className="padding15rem">
