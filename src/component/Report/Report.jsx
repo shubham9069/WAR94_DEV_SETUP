@@ -1,9 +1,48 @@
+
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useContext,useEffect } from 'react'
+import { useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import {AuthContext} from '../../AuthProvider'
+import Toast from '../../Toast'
+import axios from '../../axios'
 
-
-const Report = () => {
+const Report = ({URL}) => {
+  const {userToken} = useContext(AuthContext)
   const location = useLocation()
+  const navigate = useNavigate()
+  const [data,setData] = useState([])
+
+  const getData= async()=>{
+
+      
+    try{
+      
+      const response = await axios({
+        method: "get",
+        url: URL,
+        headers:{
+        'Authorization': `Bearer ${userToken} `,
+        
+        },
+      })
+     
+        
+      if(response.status===200){
+        const newdata = response.data;
+        setData(newdata?.reports)
+          
+        
+      }
+    } catch (err) {
+      const error = err.response.data
+      Toast(error.message);
+      
+    }  
+  }
+  useEffect(()=>{
+    getData()
+  },[URL])
   return (
     <>
       <div className="event-top padding15rem">
@@ -33,23 +72,27 @@ const Report = () => {
     <th>Reported By</th>
     <th>Date</th>
     <th>Reason</th>
-    <th>Proof Submitted</th>
+    <th>Proof</th>
    
   
     
   </tr>
-  {[...Array(4)]?.map((a)=>{
+  {data?.map((a)=>{
 
     return <tr>
    
     
     <td><button className='themeButton' style={{background:"#F5F8FA",color:"#A1A5B7",}}>edit</button></td>
-    <td><p className='span-box-green'>Resolved</p></td>
-    <td> <p style={{color:'#7E8299',fontSize:14}}>@devil432<br/><span style={{color:'#B5B5C3',fontSize:12}}>@sohil.com</span></p></td>
-    <td> <p style={{color:'#7E8299',fontSize:14}}>@devil432<br/><span style={{color:'#B5B5C3',fontSize:12}}>@sohil.com</span> <span className="span-box" style={{padding:'5px 10px',background:'#181C32',color:'white',fontSize:8}}>+10</span></p></td>
-    <td style={{color:'#7E8299',fontSize:14}}>5 Nov 2022 - 12:44 PM</td>
-    <td> <span className='span-box' style={{color:'#A1A5B7',background:'#F9F9F9'}}>span</span></td>
-    <td style={{color:'#7E8299',fontSize:14}}>video</td>
+    <td>{a?.status ? <p className='span-box-green'>Resolved</p>:<p className='span-box-red'>Pending</p>}</td>
+    <td onClick={()=>navigate("/Usersdetails/"+a?.reported_user?.id)}> <p style={{color:'#7E8299',fontSize:14,cursor:'pointer'}}>{a?.reported_user?.username}<br/><span style={{color:'#B5B5C3',fontSize:12}}>{a?.reported_user?.name}</span> <span className="span-box" style={{padding:'5px 10px',background:'#181C32',color:'white',fontSize:8}}>+10</span></p></td>
+    <td> <p style={{color:'#7E8299',fontSize:14}}>{a?.reported_by?.username}<br/><span style={{color:'#B5B5C3',fontSize:12}}>{a?.reported_by?.name}</span></p></td>
+    <td style={{color:'#7E8299',fontSize:14}}>{new Date(a?.created_at).toDateString() } &emsp;{new Date(a?.created_at).toLocaleTimeString()}</td>
+    <td> <span className='span-box' style={{color:'#7E8299',background:'#F4F4F4'}}>{a?.remark}</span></td>
+    
+    <td> <Link to={"/report-post-view/"+a?.reported_post?.post_id} target='_blank' style={{color:'#7E8299',fontSize:14,textDecoration:'none'}}>View  </Link>
+    </td>
+    
+   
     
 
     

@@ -1,14 +1,59 @@
 import React, { useState } from 'react'
 import Room_Tab1 from './Room_Tab1'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import Room_Tab2 from './Room_Tab2'
 import Room_Tab3 from './Room_Tab3'
 import Room_Tab4 from './Room_Tab4'
+import { useContext } from 'react'
+import { AuthContext } from '../../AuthProvider'
+import axios from '../../axios'
+import Toast from '../../Toast'
+import { useEffect } from 'react'
 
 
 const Rooms_Details = () => {
+  const {userToken}  =useContext(AuthContext)
+  const location = useLocation()
+  const tournamentDetails = location?.state
+
     const [tab,settab] = useState(1)
-    const location = useLocation()
+    
+    const {Roomid} = useParams()
+    const [data,setData] = useState([])
+    
+
+
+    const getData= async()=>{
+
+      
+      try{
+        
+        const response = await axios({
+          method: "get",
+          url: `/get_room_details?room_id=${Roomid}`,
+          headers:{
+          'Authorization': `Bearer ${userToken} `,
+          
+          },
+        })
+       
+          
+        if(response.status===200){
+          const newdata = response.data;
+          setData(newdata?.room)
+          
+            
+          
+        }
+      } catch (err) {
+        const error = err.response.data
+        Toast(error.message);
+        
+      }  
+    }
+    useEffect(()=>{
+      getData()
+    },[])
   return (
     <>
 <div className="event-top padding15rem">
@@ -27,10 +72,10 @@ const Rooms_Details = () => {
         </div>
 
         <div className="padding15rem" style={{backgroundColor:'white',borderRadius:12,margin:'1.5rem 0'}}>
-        {tab==1 && (<Room_Tab1 /> )}
-        {tab==2 && (<Room_Tab2 /> )}
-        {tab==3 && (<Room_Tab3 /> )}
-        {tab==4 && (<Room_Tab4 /> )}
+        {tab==1 && (<Room_Tab1 roomDetails={data} tournamentDetails={tournamentDetails} setData={setData} /> )}
+        {tab==2 && (<Room_Tab2 Roomdata={data} setData={setData} /> )}
+        {tab==3 && (<Room_Tab3 data={data} setData={setData}/> )}
+        {tab==4 && (<Room_Tab4 Roomdata={data} setData={setData}/> )}
         
 
         </div>

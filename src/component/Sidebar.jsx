@@ -5,8 +5,18 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const Sidebar = () => {
   const location = useLocation()
+  console.log(location?.pathname)
     const [sidebarToggle,setsidebarToggle] = useState(true)
+    const [subEventToggle,setSubEventToggle] = useState(false)
+    const [subGamesToggle,setSubGamesToggle] = useState(false)
+    const [subBannerToggle,setBannerToggle] = useState(false)
+    const [subTournamentToggle,setTournamentToggle] = useState(false)
+    const [TournamentRoomToggle,setTournamentRoomToggle] = useState(false)
+    const [subAdminToggle,setAdminToggle] = useState(false)
+    const [subuserToggle,setuserToggle] = useState(false)
+    const [spotlighttoggle,setspotlighttoggle] = useState(false)
     const [subCategortToggle,setSubCategortToggle] = useState(false)
+    const [subpaymentToggle,setPaymentToggle] = useState(false)
 
   return (
     <>
@@ -96,103 +106,246 @@ Dashboard
  Dashboard
  <i class="bi bi-chevron-right" style={"/"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
  </Link>
-            <Link to='/event' style={"/event"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+       
+ <a id="admintoggle1"  style={"/Active-event"==location?.pathname || '/In-active-event'==location?.pathname? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
             
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Event
+  <i class={subEventToggle? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/Active-event"==location?.pathname || '/In-active-event'==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setSubEventToggle(!subEventToggle)}></i>
+</a>
+          <motion.div 
+                    animate={subEventToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
 
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M22 12C22 12.2 22 12.5 22 12.7L19.5 10.2L16.9 12.8C16.9 12.5 17 12.3 17 12C17 9.5 15.2 7.50001 12.8 7.10001L10.2 4.5L12.7 2C17.9 2.4 22 6.7 22 12ZM11.2 16.9C8.80001 16.5 7 14.5 7 12C7 11.7 7.00001 11.5 7.10001 11.2L4.5 13.8L2 11.3C2 11.5 2 11.8 2 12C2 17.3 6.09999 21.6 11.3 22L13.8 19.5L11.2 16.9Z" fill="#A1A5B7"/>
-<path opacity="0.3" d="M22 12.7C21.6 17.9 17.3 22 12 22C11.8 22 11.5 22 11.3 22L13.8 19.5L11.2 16.9C11.5 16.9 11.7 17 12 17C14.5 17 16.5 15.2 16.9 12.8L19.5 10.2L22 12.7ZM10.2 4.5L12.7 2C12.5 2 12.2 2 12 2C6.7 2 2.4 6.1 2 11.3L4.5 13.8L7.10001 11.2C7.50001 8.8 9.5 7 12 7C12.3 7 12.5 7.00001 12.8 7.10001L10.2 4.5Z" fill="#A1A5B7"/>
-</svg>
+              <ul className="sub-category" style={{display: subEventToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/Active-event" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Active Event<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/In-active-event" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>inActive Event <i class="bi bi-chevron-right"></i></Link></li>
 
- Event
- <i class="bi bi-chevron-right" style={"/event"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>
-            <Link to='/Games'  style={"/Games"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+              </ul>
+          </motion.div>
+
+          <a id="admintoggle1"  style={"/Active-Games"==location?.pathname || '/InActive-Games'==location?.pathname? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
             
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Games
+  <i class={subGamesToggle? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/Active-Games"==location?.pathname || '/InActive-Games'==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setSubGamesToggle(!subGamesToggle)}></i>
+</a>
+          <motion.div 
+                    animate={subGamesToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
 
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.25" d="M1.45309 8.37983C1.76586 5.87768 3.89286 4 6.41448 4H17.5867C20.1083 4 22.2353 5.87768 22.548 8.37983L23.3225 14.5757C23.6826 17.456 21.4367 20 18.5341 20C16.9306 20 15.5009 19.2154 14.6217 18H9.37943C8.50019 19.2154 7.07058 20 5.46705 20C2.56439 20 0.318571 17.456 0.678601 14.5757L1.45309 8.37983Z" fill="#A1A5B7"/>
-<path d="M8 8C7.44772 8 7 8.44772 7 9V10H6C5.44772 10 5 10.4477 5 11C5 11.5523 5.44772 12 6 12H7V13C7 13.5523 7.44772 14 8 14C8.55229 14 9 13.5523 9 13V12H10C10.5523 12 11 11.5523 11 11C11 10.4477 10.5523 10 10 10H9V9C9 8.44772 8.55229 8 8 8Z" fill="#A1A5B7"/>
-<path d="M18 10C18.5523 10 19 9.55229 19 9C19 8.44771 18.5523 8 18 8C17.4477 8 17 8.44771 17 9C17 9.55229 17.4477 10 18 10Z" fill="#A1A5B7"/>
-<path d="M16 14C16.5523 14 17 13.5523 17 13C17 12.4477 16.5523 12 16 12C15.4477 12 15 12.4477 15 13C15 13.5523 15.4477 14 16 14Z" fill="#A1A5B7"/>
-</svg>
+              <ul className="sub-category" style={{display: subGamesToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/Active-Games" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Active Games<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/InActive-Games" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>inActive Games <i class="bi bi-chevron-right"></i></Link></li>
 
- Games
- <i class="bi bi-chevron-right" style={"/Games"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>
-            <Link to='/Tournament' style={"/Tournament"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}} >
+              </ul>
+          </motion.div>            
             
+<a id="admintoggle1"  style={"/Active-Banner"==location?.pathname || '/InActive-Banner'==location?.pathname? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Banner
+  <i class={subBannerToggle? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/Active-Banner"==location?.pathname || '/InActive-Banner'==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setBannerToggle(!subBannerToggle)}></i>
+</a>
+          <motion.div 
+                    animate={subBannerToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
 
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 18V16H10V18L9 20H15L14 18Z" fill="#A1A5B7"/>
-<path opacity="0.3" d="M20 4H17V3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3V4H4C3.4 4 3 4.4 3 5V9C3 11.2 4.8 13 7 13C8.2 14.2 8.8 14.8 10 16H14C15.2 14.8 15.8 14.2 17 13C19.2 13 21 11.2 21 9V5C21 4.4 20.6 4 20 4ZM5 9V6H7V11C5.9 11 5 10.1 5 9ZM19 9C19 10.1 18.1 11 17 11V6H19V9ZM17 21V22H7V21C7 20.4 7.4 20 8 20H16C16.6 20 17 20.4 17 21ZM10 9C9.4 9 9 8.6 9 8V5C9 4.4 9.4 4 10 4C10.6 4 11 4.4 11 5V8C11 8.6 10.6 9 10 9ZM10 13C9.4 13 9 12.6 9 12V11C9 10.4 9.4 10 10 10C10.6 10 11 10.4 11 11V12C11 12.6 10.6 13 10 13Z" fill="#A1A5B7"/>
-</svg>
+              <ul className="sub-category" style={{display: subBannerToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/Active-Banner" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Active Banner<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/InActive-Banner" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>inActive Banner <i class="bi bi-chevron-right"></i></Link></li>
 
- Tournamnet
- <i class="bi bi-chevron-right" style={"/Tournament"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>
+              </ul>
+          </motion.div> 
+                   
+<a id="admintoggle1"  style={"/Active-Tournament"==location?.pathname || '/InActive-Tournament'==location?.pathname  || '/Feature-Tournament'==location?.pathname || '/Daily-Tournament'==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Tournament
+  <i class={subTournamentToggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/Active-Tournament"==location?.pathname || '/InActive-Tournament'==location?.pathname  || '/Feature-Tournament'==location?.pathname || '/Daily-Tournament'==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setTournamentToggle(!subTournamentToggle)}></i>
+</a>
+          <motion.div 
+                    animate={subTournamentToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
+
+              <ul className="sub-category" style={{display: subTournamentToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/Active-Tournament" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Active Tournament<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/InActive-Tournament" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>InActive Tournament<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Feature-Tournament" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Feature Tournament<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Daily-Tournament" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Daily Tournament<i class="bi bi-chevron-right"></i></Link></li>
+
+
+              </ul>
+          </motion.div>   
+<a id="admintoggle1"  style={location.pathname?.includes("match")  ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Tournament Room
+  <i class={TournamentRoomToggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={location.pathname?.includes("match") ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setTournamentRoomToggle(!TournamentRoomToggle)}></i>
+</a>
+          <motion.div 
+                    animate={TournamentRoomToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
+
+              <ul className="sub-category" style={{display: TournamentRoomToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/UpComming-match" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Up Comming match<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Running-match" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Running match<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Completed-match" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Completed match<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Cancelled-match" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Cancelled match<i class="bi bi-chevron-right"></i></Link></li>
+
+
+              </ul>
+          </motion.div>   
+             
+        
+
+
         </div>
         <div>
             <a style={{color:'#4A4B68'}}>Account</a>
 
-            <Link to='/Users' id="admintoggle1"  style={"/Users"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            <a id="admintoggle1"  style={"/Active-Subadmin"==location?.pathname || '/InActive-Subadmin'==location?.pathname  || '/Feature-Subadmin'==location?.pathname  ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Sub Admin
+  <i class={subAdminToggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/Active-Subadmin"==location?.pathname || '/InActive-Subadmin'==location?.pathname  || '/Feature-Subadmin'==location?.pathname  ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setAdminToggle(!subAdminToggle)}></i>
+</a>
+          <motion.div 
+                    animate={subAdminToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
+
+              <ul className="sub-category" style={{display: subAdminToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/Active-Subadmin" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Active Sub Admin<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/InActive-Subadmin" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>InActive Sub Admin<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Suspended-Subadmin" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Suspended Sub Amin<i class="bi bi-chevron-right"></i></Link></li>
+             
+
+
+              </ul>
+          </motion.div>  
+
+            <a id="admintoggle1"  style={location?.pathname.includes("Users") ?  {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             Users
+  <i class={subuserToggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={location?.pathname.includes("Users") ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setuserToggle(!subuserToggle)}></i>
+</a>
+          <motion.div 
+                    animate={subuserToggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },}}>
+
+              <ul className="sub-category" style={{display: subuserToggle ? "block":"none"}}  >
+                            
+              <li><Link to="/Active-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Active Users<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/InActive-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>InActive Users<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Pro-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Pro Users<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Gold-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>gold Users<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/Blocked-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Blocked Users<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/AutoBlocked-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>AutoBlocked Users<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/In-surveillance-Users" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>In surveillance Users<i class="bi bi-chevron-right"></i></Link></li>
+             
+
+
+              </ul>
+          </motion.div>  
+
+<Link to='/All-Posts' style={"/All-Posts"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+
+   
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.5 11C8.98528 11 11 8.98528 11 6.5C11 4.01472 8.98528 2 6.5 2C4.01472 2 2 4.01472 2 6.5C2 8.98528 4.01472 11 6.5 11Z" fill="white"/>
+            <path opacity="0.3" d="M13 6.5C13 4 15 2 17.5 2C20 2 22 4 22 6.5C22 9 20 11 17.5 11C15 11 13 9 13 6.5ZM6.5 22C9 22 11 20 11 17.5C11 15 9 13 6.5 13C4 13 2 15 2 17.5C2 20 4 22 6.5 22ZM17.5 22C20 22 22 20 22 17.5C22 15 20 13 17.5 13C15 13 13 15 13 17.5C13 20 15 22 17.5 22Z" fill="#A1A5B7"/>
+            </svg>
+            
+            
+             All Posts
+             <i class="bi bi-chevron-right" style={"/Story"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+  </Link>  
+
+   <a id="admintoggle1"  style={"/add_money_request"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
             
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
 <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
 </svg>
- User
- <i class={subCategortToggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/Users"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setSubCategortToggle(!subCategortToggle)}></i>
- </Link>
+ payment
+ <i class={subpaymentToggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={"/All-Payment"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setPaymentToggle(!subpaymentToggle)}></i>
+ </a>
 
- <motion.div 
-        animate={subCategortToggle ? "open" : "closed"}
+          <motion.div 
+        animate={subpaymentToggle ? "open" : "closed"}
       variants={
         {open: { opacity: 1, y: 0, },
   closed: { opacity: 0, y: "100%" },
       }
       }
        >
-     <ul className="sub-category" style={{display: subCategortToggle ? "block":"none"}}  >
+     <ul className="sub-category" style={{display: subpaymentToggle ? "block":"none"}}  >
                 
-  <li><Link className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>User Verification<i class="bi bi-chevron-right"></i></Link></li>
-  <li><Link className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Game Characters<i class="bi bi-chevron-right"></i></Link></li>
-  <li><Link className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Recent Activity <i class="bi bi-chevron-right"></i></Link></li>
+  <li><Link to="/add_money_request" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Add Money Req<i class="bi bi-chevron-right"></i></Link></li>
+  <li><Link to="/withdraw_money_request" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Withdraw  Req<i class="bi bi-chevron-right"></i></Link></li>
+
   
   
 
       </ul>
-           </motion.div>
-          
-           <Link to='/Story' style={"/Story"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+           </motion.div> 
+
+  <Link to='/pro-verification' style={"/pro-verification"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3" d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z" fill="#A1A5B7"/>
+<path d="M19.1 9.99922C18.7 9.59922 18.1 9.59922 17.7 9.99922L10.7 16.9992H2V18.9992C2 19.5992 2.4 19.9992 3 19.9992H21C21.6 19.9992 22 19.5992 22 18.9992V12.8992L19.1 9.99922Z" fill="#A1A5B7"/>
+</svg>
             
 
-   
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.5 11C8.98528 11 11 8.98528 11 6.5C11 4.01472 8.98528 2 6.5 2C4.01472 2 2 4.01472 2 6.5C2 8.98528 4.01472 11 6.5 11Z" fill="white"/>
-<path opacity="0.3" d="M13 6.5C13 4 15 2 17.5 2C20 2 22 4 22 6.5C22 9 20 11 17.5 11C15 11 13 9 13 6.5ZM6.5 22C9 22 11 20 11 17.5C11 15 9 13 6.5 13C4 13 2 15 2 17.5C2 20 4 22 6.5 22ZM17.5 22C20 22 22 20 22 17.5C22 15 20 13 17.5 13C15 13 13 15 13 17.5C13 20 15 22 17.5 22Z" fill="#A1A5B7"/>
-</svg>
+ pro Verification Badge
+ <i class="bi bi-chevron-right" style={"/pro-verification"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+ </Link>                   
 
-
- Story
- <i class="bi bi-chevron-right" style={"/Story"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>       
-           <Link to='/Tournament-page' style={"/Tournament-page"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
-            
-
-   
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.5 11C8.98528 11 11 8.98528 11 6.5C11 4.01472 8.98528 2 6.5 2C4.01472 2 2 4.01472 2 6.5C2 8.98528 4.01472 11 6.5 11Z" fill="white"/>
-<path opacity="0.3" d="M13 6.5C13 4 15 2 17.5 2C20 2 22 4 22 6.5C22 9 20 11 17.5 11C15 11 13 9 13 6.5ZM6.5 22C9 22 11 20 11 17.5C11 15 9 13 6.5 13C4 13 2 15 2 17.5C2 20 4 22 6.5 22ZM17.5 22C20 22 22 20 22 17.5C22 15 20 13 17.5 13C15 13 13 15 13 17.5C13 20 15 22 17.5 22Z" fill="#A1A5B7"/>
-</svg>
-
-
- Tournament Pages
- <i class="bi bi-chevron-right" style={"/Tournament-page"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link> 
-
- 
-            <Link to='/report-user' style={"/report-user"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+          <Link to='/report-user' style={"/report-user"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
             
 
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +355,137 @@ Dashboard
 
  Report Users
  <i class="bi bi-chevron-right" style={"/report-user"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>      
+ </Link> 
+
+ <Link to='/report-posts' style={"/report-posts"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3" d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z" fill="#A1A5B7"/>
+<path d="M19.1 9.99922C18.7 9.59922 18.1 9.59922 17.7 9.99922L10.7 16.9992H2V18.9992C2 19.5992 2.4 19.9992 3 19.9992H21C21.6 19.9992 22 19.5992 22 18.9992V12.8992L19.1 9.99922Z" fill="#A1A5B7"/>
+</svg>
+            
+
+ Report posts
+ <i class="bi bi-chevron-right" style={"/report-posts"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+ </Link> 
+
+ 
+ <Link to='/Reason-List' style={"/Reason-List"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3" d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z" fill="#A1A5B7"/>
+<path d="M19.1 9.99922C18.7 9.59922 18.1 9.59922 17.7 9.99922L10.7 16.9992H2V18.9992C2 19.5992 2.4 19.9992 3 19.9992H21C21.6 19.9992 22 19.5992 22 18.9992V12.8992L19.1 9.99922Z" fill="#A1A5B7"/>
+</svg>
+            
+
+ Reason
+ <i class="bi bi-chevron-right" style={"/Reason-List"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+ </Link> 
+
+ <Link to='/contact-us' style={"/contact-us"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="#A1A5B7"/>
+<path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="white"/>
+</svg>
+
+
+
+Contact Us
+<i class="bi bi-chevron-right" style={"/contact-us"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+</Link>
+      
+      <Link to='/device-ban' style={"/device-ban"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M14.7499 2.5H9.2499C6.9899 2.5 5.1499 4.34 5.1499 6.6V17.4C5.1499 19.66 6.9899 21.5 9.2499 21.5H14.7499C17.0099 21.5 18.8499 19.66 18.8499 17.4V6.6C18.8499 4.34 17.0099 2.5 14.7499 2.5Z" fill="#A1A5B7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.95 18.15C11.44 18.15 11 17.71 11 17.2C11 16.69 11.44 16.25 11.95 16.25C12.46 16.25 12.9 16.69 12.9 17.2C12.9 17.71 12.46 18.15 11.95 18.15Z" fill="white"/>
+</svg>
+
+
+Device Ban
+<i class="bi bi-chevron-right" style={"/device-ban"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+</Link>      
+
+<Link to='/static-list' style={"/static-list"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M14.7499 2.5H9.2499C6.9899 2.5 5.1499 4.34 5.1499 6.6V17.4C5.1499 19.66 6.9899 21.5 9.2499 21.5H14.7499C17.0099 21.5 18.8499 19.66 18.8499 17.4V6.6C18.8499 4.34 17.0099 2.5 14.7499 2.5Z" fill="#A1A5B7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.95 18.15C11.44 18.15 11 17.71 11 17.2C11 16.69 11.44 16.25 11.95 16.25C12.46 16.25 12.9 16.69 12.9 17.2C12.9 17.71 12.46 18.15 11.95 18.15Z" fill="white"/>
+</svg>
+
+
+Static List
+<i class="bi bi-chevron-right" style={"/static-list"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+</Link>        
+<Link to='/Chat-group' style={"/static-list"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M14.7499 2.5H9.2499C6.9899 2.5 5.1499 4.34 5.1499 6.6V17.4C5.1499 19.66 6.9899 21.5 9.2499 21.5H14.7499C17.0099 21.5 18.8499 19.66 18.8499 17.4V6.6C18.8499 4.34 17.0099 2.5 14.7499 2.5Z" fill="#A1A5B7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.95 18.15C11.44 18.15 11 17.71 11 17.2C11 16.69 11.44 16.25 11.95 16.25C12.46 16.25 12.9 16.69 12.9 17.2C12.9 17.71 12.46 18.15 11.95 18.15Z" fill="white"/>
+</svg>
+
+
+Chat Group
+<i class="bi bi-chevron-right" style={"/static-list"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+</Link>
+
+<a id="admintoggle1"  style={location.pathname?.includes("spotlight") ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+            
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <rect x="4" y="4" width="7" height="7" rx="1.5" fill="white"/>
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13 5.5C13 4.67157 13.6716 4 14.5 4H18.5C19.3284 4 20 4.67157 20 5.5V9.5C20 10.3284 19.3284 11 18.5 11H14.5C13.6716 11 13 10.3284 13 9.5V5.5ZM4 14.5C4 13.6716 4.67157 13 5.5 13H9.5C10.3284 13 11 13.6716 11 14.5V18.5C11 19.3284 10.3284 20 9.5 20H5.5C4.67157 20 4 19.3284 4 18.5V14.5ZM14.5 13C13.6716 13 13 13.6716 13 14.5V18.5C13 19.3284 13.6716 20 14.5 20H18.5C19.3284 20 20 19.3284 20 18.5V14.5C20 13.6716 19.3284 13 18.5 13H14.5Z" fill="#A1A5B7"/>
+            </svg>
+             SpotLight
+             <i class={spotlighttoggle ? "bi bi-chevron-down" :"bi bi-chevron-right"} style={location.pathname?.includes("spotlight")  ? {color:"white"}:{color:"#A1A5B7"}} onClick={()=>setspotlighttoggle(!spotlighttoggle)}></i>
+             </a>
+            
+             <motion.div 
+                    animate={spotlighttoggle ? "open" : "closed"}
+                  variants={
+                    {open: { opacity: 1, y: 0, },
+              closed: { opacity: 0, y: "100%" },
+                  }
+                  }
+                   >
+                 <ul className="sub-category" style={{display: spotlighttoggle ? "block":"none"}}  >
+                            
+              <li><Link to="/pending-spotlight" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Pending<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/ongoing-spotlight" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Ongoing<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/complete-spotlight" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Complete<i class="bi bi-chevron-right"></i></Link></li>
+              <li><Link to="/rejected-spotlight" className='link-a ' style={{width:'100%',display:'block',height:'100%'}}>Rejected<i class="bi bi-chevron-right"></i></Link></li>
+            
+              
+              
+            
+                  </ul>
+                       </motion.div> 
+
+   <Link to='/World-Chat' style={"/World-Chat"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M14.7499 2.5H9.2499C6.9899 2.5 5.1499 4.34 5.1499 6.6V17.4C5.1499 19.66 6.9899 21.5 9.2499 21.5H14.7499C17.0099 21.5 18.8499 19.66 18.8499 17.4V6.6C18.8499 4.34 17.0099 2.5 14.7499 2.5Z" fill="#A1A5B7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.95 18.15C11.44 18.15 11 17.71 11 17.2C11 16.69 11.44 16.25 11.95 16.25C12.46 16.25 12.9 16.69 12.9 17.2C12.9 17.71 12.46 18.15 11.95 18.15Z" fill="white"/>
+</svg>
+
+
+world chat
+<i class="bi bi-chevron-right" style={"/World-Chat"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+</Link>      
+       
+ <Link to='/Email-marketing' style={"/Email-marketing"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M15.3567 4.94166C15.3567 4.56288 15.4165 4.20203 15.5219 3.86384C15.5623 3.73447 15.469 3.59766 15.3336 3.59766H6.6015C4.3839 3.59766 2.5791 5.40246 2.5791 7.62966V14.292C2.5791 16.5192 4.3839 18.324 6.6015 18.324H7.6287C8.1087 18.324 8.5791 18.5256 8.9247 18.8616L10.2879 20.2344C10.6047 20.5512 11.0175 20.724 11.4591 20.724C11.9007 20.724 12.3231 20.5512 12.6303 20.2344L13.9935 18.8616C14.3487 18.516 14.7999 18.324 15.2895 18.324H16.3167C18.5343 18.324 20.3391 16.5192 20.3391 14.292V8.51433C20.3391 8.37694 20.1987 8.28352 20.0683 8.32688C19.7099 8.44603 19.325 8.51286 18.9279 8.51286C16.9599 8.51286 15.3567 6.90966 15.3567 4.94166Z" fill="#A1A5B7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M18.9096 2.81348C17.7336 2.81348 16.7803 3.76676 16.7803 4.94276C16.7803 6.11876 17.7336 7.07204 18.9096 7.07204C20.0856 7.07204 21.0388 6.11876 21.0388 4.94276C21.0388 3.76676 20.0856 2.81348 18.9096 2.81348Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.3298 12.1806C13.7826 12.1806 13.3314 11.7294 13.3314 11.1822C13.3314 10.635 13.7826 10.1934 14.3298 10.1934C14.877 10.1934 15.3186 10.635 15.3186 11.1822C15.3186 11.7294 14.877 12.1806 14.3298 12.1806ZM8.84818 12.1806C8.30098 12.1806 7.85938 11.7294 7.85938 11.1822C7.85938 10.635 8.30098 10.1934 8.84818 10.1934C9.39538 10.1934 9.84659 10.635 9.84659 11.1822C9.84659 11.7294 9.39538 12.1806 8.84818 12.1806Z" fill="white"/>
+</svg>
+
+
+Email marketing
+ <i class="bi bi-chevron-right" style={"/Email-marketing"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
+ </Link>
 
  <Link to='/Live-Support' style={"/Live-Support"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
 
@@ -217,42 +500,10 @@ Live Support
  <i class="bi bi-chevron-right" style={"/Live-Support"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
  </Link>
 
- <Link to='/contact-us' style={"/contact-us"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
+ 
 
 
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="#A1A5B7"/>
-<path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="white"/>
-</svg>
-
-
-
-Contact Us
- <i class="bi bi-chevron-right" style={"/contact-us"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>
-
- <Link to='/device-ban' style={"/device-ban"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
-
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M14.7499 2.5H9.2499C6.9899 2.5 5.1499 4.34 5.1499 6.6V17.4C5.1499 19.66 6.9899 21.5 9.2499 21.5H14.7499C17.0099 21.5 18.8499 19.66 18.8499 17.4V6.6C18.8499 4.34 17.0099 2.5 14.7499 2.5Z" fill="#A1A5B7"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.95 18.15C11.44 18.15 11 17.71 11 17.2C11 16.69 11.44 16.25 11.95 16.25C12.46 16.25 12.9 16.69 12.9 17.2C12.9 17.71 12.46 18.15 11.95 18.15Z" fill="white"/>
-</svg>
-
-
-Device Ban
- <i class="bi bi-chevron-right" style={"/device-ban"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>
- <Link to='/static-list' style={"/static-list"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
-
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M14.7499 2.5H9.2499C6.9899 2.5 5.1499 4.34 5.1499 6.6V17.4C5.1499 19.66 6.9899 21.5 9.2499 21.5H14.7499C17.0099 21.5 18.8499 19.66 18.8499 17.4V6.6C18.8499 4.34 17.0099 2.5 14.7499 2.5Z" fill="#A1A5B7"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.95 18.15C11.44 18.15 11 17.71 11 17.2C11 16.69 11.44 16.25 11.95 16.25C12.46 16.25 12.9 16.69 12.9 17.2C12.9 17.71 12.46 18.15 11.95 18.15Z" fill="white"/>
-</svg>
-
-
-Static List
- <i class="bi bi-chevron-right" style={"/static-list"==location?.pathname ? {color:"white"}:{color:"#A1A5B7"}}></i>
- </Link>
+ 
  <Link to='/setting' style={"/setting"==location?.pathname ? {backgroundColor:"#F1416C",color:"white"}:{backgroundColor:"white",color:"#A1A5B7"}}>
 
 

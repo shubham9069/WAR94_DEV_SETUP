@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Wallent = () => {
+const Wallent = ({single_user,editpost}) => {
+    const [walletdata ,setWalletData] = useState({
+        total:single_user?.total ,
+        winning:single_user?.winning,
+        bonus:single_user?.bonus,
+        deposite:single_user?.deposite
+
+
+    })
+    const {total,winning,bonus,deposite} = walletdata
+ 
+ 
   return (
     <>
     <div className="user-permission-tab padding15rem">
@@ -11,45 +22,38 @@ const Wallent = () => {
 
 <div className="inputwrapper" style={{margin:'1rem 0'}}>
                 <p className='span-text-dark' >Total Balance</p>
-                <h5 style={{fontWeight:900,color:'#3F4254',marginBottom:0}}>₹6,840</h5>
-    </div>
-<div className="inputwrapper" style={{margin:'2rem 0'}}>
-                <p className='span-text-dark' >Cash</p>
-                <input className="form-input" placeholder='₹79'></input>
+                <h5 style={{fontWeight:900,color:'#3F4254',marginBottom:0}}>₹{total}</h5>
     </div>
 <div className="inputwrapper" style={{margin:'2rem 0'}}>
                 <p className='span-text-dark' >Winning</p>
-                <input className="form-input" placeholder='₹200'></input>
+                <input className="form-input" value={winning} name="winning" ></input>
     </div>
 <div className="inputwrapper" style={{margin:'2rem 0'}}>
                 <p className='span-text-dark' >Bonus</p>
-                <input className="form-input" placeholder='₹20'></input>
+                <input className="form-input" value={bonus} name="bonus" ></input>
     </div>
+
 <div className="inputwrapper" style={{margin:'2rem 0'}}>
-                <p className='span-text-dark' >Total Win Amount</p>
-                <input className="form-input" placeholder='₹500'></input>
-    </div>
-<div className="inputwrapper" style={{margin:'2rem 0'}}>
-                <p className='span-text-dark' >Top up Amount</p>
-                <input className="form-input" placeholder='₹500'></input>
+                <p className='span-text-dark' >Deposite Amount</p>
+                <input className="form-input" value={deposite} name="deposite" ></input>
     </div>
 
     <div className="inputwrapper" style={{margin:'2rem 0'}}>
                 <p className='span-text-dark' >Add Money</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.add_money} name="add_money" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
                 
         </div>
     <div className="inputwrapper" style={{margin:'2rem 0'}} >
                 <p className='span-text-dark' >Withdraw</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.withdraw_money} name="withdraw_money" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
                 
         </div>
     <div className="inputwrapper" style={{margin:'2rem 0'}}>
                 <p className='span-text-dark' >Wallet Transfer</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.wallet_transfer} name="wallet_transfer" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
                 
         </div>
 

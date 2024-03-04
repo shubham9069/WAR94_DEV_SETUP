@@ -12,11 +12,12 @@ import Toast from '../Toast';
 
   
 
-const Games = () => {
+const Games = ({Status_Active_InActive}) => {
  
   const {userToken,state,dispatch,country_list} = useContext(AuthContext)
   const location = useLocation()
   const {AllGames} = state
+    const [newGamesArr,setNewGamesArr] = useState([])
     const [newEvent,setNewEvent] = useState(false)
     const [ModalTournamentType,setmodal_tournament_type] = useState(false)
     const [tab,setTab] = useState(1);
@@ -30,8 +31,15 @@ const Games = () => {
   const [editGameid,setEdit_Gameid] = useState("")
   const editor = useRef(null);
   const [isLoadiing,setisLoading] =useState(true)
+  const [searchCon,setSearchCon] = useState("")
 const setAllGames=""
    
+useEffect(()=>{
+  var arr = AllGames?.filter(a=>a?.status==Status_Active_InActive)
+
+  setNewGamesArr(arr)
+
+},[Status_Active_InActive,state])
   const HandleInput = (e) =>{
     e.preventDefault();
     
@@ -171,6 +179,22 @@ const setAllGames=""
     }
   }
   
+  // search country 
+  const searchCountry = useMemo(()=>{
+
+    if(!searchCon){
+      return country_list
+    }
+
+    var arr = country_list?.filter((country)=>{
+      var countrylow = country?.toLowerCase()
+      
+      return countrylow.includes(searchCon?.toLowerCase())
+    })
+    return arr
+  },[searchCon])
+
+
 
     const Tab1=[
       <div className="padding15rem">
@@ -185,13 +209,13 @@ const setAllGames=""
 
       <div className="dropdown-menu country-dropdown">
       
-      <input className="form-input w-100" placeholder='search Bar '></input>
+      <input type="text" className="form-input w-100" placeholder='search Bar ' value={searchCon} onChange={(e)=>setSearchCon(e.target.value)}></input>
 
       <p style={{fontSize:12,color: '#B5B5C3',fontWeight:600,margin:'1.5rem 0 0 0 '}}>country</p>
-      <div className="country-countainer between-div" style={{  height: 200, overflowY: 'auto'}}>
+      <div className="country-countainer d-flex  justify-content-between" style={{  height: 200, overflowY: 'auto'}}>
 
 
-          {country_list?.map((data)=>{
+          {searchCountry?.map((data)=>{
 
             return <div className='between-div' >
           <p style={{fontSize:12,margin:0,fontWeight:600}}>{data}</p>
@@ -611,16 +635,17 @@ Add Game</button>
 </div>
     <div className='event-container' >
 
-        {AllGames?.map((element)=>{
+        {newGamesArr?.map((element)=>{
 
             return <div className='event-box padding15rem'>
+            <input  type="checkbox" className='event-toggle' checked={element?.status} onChange={(e)=>e.target.checked ? gameEditStatus(1,element?.game_id): gameEditStatus(0,element?.game_id)}></input>
          <div className='event-img-div'>   
-        <img src={element?.dashboard_image}></img>
+        <img src={element?.dashboard_image} style={{objectFit:'contain'}}></img>
         
-        <input  type="checkbox" className='event-toggle' checked={element?.status} onChange={(e)=>e.target.checked ? gameEditStatus(1,element?.game_id): gameEditStatus(0,element?.game_id)}></input>
+       
         </div>
         <div>
-        <span className='span-text-dark' style={{fontSize:16,flex: 1}}> {element?.name}</span>
+        <span className='span-text-dark' style={{fontSize:14,flex: 1}}> {element?.name}</span>
         
             <div className='event-icon' style={{backgroundColor:'#F3F6F9'}} onClick={()=>data(element)}>
             

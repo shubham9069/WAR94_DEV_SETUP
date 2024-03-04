@@ -3,14 +3,25 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../AuthProvider';
 import axios from '../../axios';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 
-const User = () => {
+const User = ({Status_Active_InActive,type}) => {
     const navigate = useNavigate()
     const {state ,userToken,dispatch} = useContext(AuthContext)
     const {TournamnetData} = state
+    const [TorunamentArr,setTournamentArr] = useState([])
     const location = useLocation();
     
+    useEffect(()=>{
+
+      var arr = TournamnetData?.filter((a)=>{
+
+        return a[type] == Status_Active_InActive
+      })
+      setTournamentArr(arr)
+
+    },[Status_Active_InActive,type,state])
 
      // delete Tounament 
 
@@ -71,15 +82,19 @@ const User = () => {
             <Link to="/AddTournament" className='themeButton link-a' style={{backgroundColor:' #47BE7D',border:'1px solid #47BE7D'}}>Add Tournament</Link>
         </div>
 
-        {TournamnetData?.map((item)=>{
+        {TorunamentArr?.map((item)=>{
 
             return <div className="userList">
-        <img src={item?.tournament_image} style={{width:170,height:170,borderRadius:6}}></img>
+        <img src={item?.tournament_image} style={{width:150,height:120,borderRadius:12,objectFit:'cover',alignSelf:'center'}}></img>
 
         <div style={{flex:1}}>
             <h6  style={{marginBottom:0,fontWeight:600,color:'#3F4254'}}>{item?.game_name}</h6>
             <p className="span-text-dark" style={{marginBottom:8,color:'#5E6278'}}>{item?.name}</p>
-            <p className="span-text-light" style={{fontSize:12,}}>{JSON.parse(item?.country_name).toString()} <span className= {`span-box-${item.status==0 ? 'red':'green'}`}>{item.status==0 ? "InActive":"Active"}</span></p>
+            <p className="span-text-light" style={{fontSize:12,}}>{JSON.parse(item?.country_name).toString()} 
+            <span className= {`span-box-${item.status==0 ? 'red':'green'}`} style={{marginRight:10}}>{item.status==0 ? "InActive":"Active"}</span>
+           
+            </p>
+            
             <div  className="tournament-type" >
             
             <div>
@@ -91,6 +106,7 @@ const User = () => {
                 <p className="span-text-light" style={{fontSize:13,marginBottom:0}}>Tournamnet start Time </p>
             </div>
             <span className='span-box'>{item?.tournament_show==1 ? "Featured Show" : "Daily Show"}</span>
+            <span className= {`span-box-${item.tournament_status ? 'green':'yellow'}`}>{item.tournament_status ? "Completed ":"Not Completed"}</span>
             </div>
         </div>
 

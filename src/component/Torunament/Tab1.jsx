@@ -11,6 +11,7 @@ const Tab1 = ({setTournamentData,tournamentData,handleinput,Country,setCountry})
     camera_type,
     match_map,
     game_id} = tournamentData
+    const [searchCon,setSearchCon] = useState("")
 
 
   const fileupload = (e)=>{
@@ -44,6 +45,33 @@ const Tab1 = ({setTournamentData,tournamentData,handleinput,Country,setCountry})
 
   },[game_id])
 
+  const searchCountry = useMemo(()=>{
+
+    if(!searchCon){
+      return country_list
+    }
+
+    var arr = country_list?.filter((country)=>{
+      var countrylow = country?.toLowerCase()
+      
+      return countrylow.includes(searchCon?.toLowerCase())
+    })
+    return arr
+  },[searchCon])
+
+  const debounce = (func, delay) => {
+    let timer
+    return (...args) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            func(...args)  // func.apply(null,args)     
+        }, delay)
+    }
+  }
+  const filerSearch = debounce((inputvalue) => setSearchCon(inputvalue.target.value), 300)
+
+
+  
 
   return (
     <>
@@ -65,15 +93,15 @@ const Tab1 = ({setTournamentData,tournamentData,handleinput,Country,setCountry})
 
       <div className="dropdown-menu country-dropdown">
       
-      <input className="form-input w-100" placeholder='search Bar '></input>
+      <input className="form-input w-100" placeholder='search Bar ' onChange={filerSearch}></input>
 
       <p style={{fontSize:12,color: '#B5B5C3',fontWeight:600,margin:'1.5rem 0 0 0 '}}>country</p>
-      <div className="country-countainer between-div" style={{height:200,overflowY:"auto"}}>
+      <div className="country-countainer d-flex " style={{height:200,overflowY:"auto"}}>
 
 
-          {country_list?.map((data)=>{
+          {searchCountry?.map((data)=>{
 
-            return <div className='between-div' >
+            return <div className='d-flex justify-content-between' style={{flex:'1 1 100px'}} >
           <p style={{fontSize:12,margin:0,fontWeight:600}}>{data}</p>
           <input type="checkbox" value={data} checked={Country.includes(data)}  onChange={checkItems}/>
         </div>

@@ -18,6 +18,7 @@ const AuthProvider = ({children}) => {
       AllGames:[],
       AllEvents:[],
       TournamnetData:[],
+      UserData:[]
     }
     const [state, dispatch] = useReducer(reducer, initialState);
     
@@ -34,6 +35,7 @@ const AuthProvider = ({children}) => {
         case 'Add':
           
           state?.[action?.name].push(action.data)
+          console.log(state)
           
           return {...state} ;
         case 'delete':

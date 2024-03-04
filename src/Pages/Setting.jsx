@@ -2,10 +2,59 @@ import React from 'react'
 import { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
+import {AuthContext} from '../AuthProvider'
+import axios from '../axios'
+import Toast from '../Toast'
+import { useEffect } from 'react'
+import { useContext } from 'react'
+import { useMemo } from 'react'
 
 const Setting = () => {
     const location = useLocation()
     const [editModal,setEditModal] = useState(false)
+
+    const {userToken} = useContext(AuthContext)
+    const [data,setData] = useState({})
+    const [input,setInput] = useState()
+  
+
+    const getData= async()=>{
+  
+        
+      try{
+        
+        const response = await axios({
+          method: "get",
+          url: `/get_setting`,
+          headers:{
+          'Authorization': `Bearer ${userToken} `,
+          
+          },
+        })
+       
+          
+        if(response.status===200){
+          const newdata = response.data;
+          setData(newdata?.setting);
+
+
+        }
+      } catch (err) {
+        const error = err.response.data
+        Toast(error.message);
+        
+      }  
+    }
+    useEffect(()=>{
+      getData()
+    },[])
+
+  const array = useMemo(()=>{
+
+
+    
+  },[])
+
   return (
     <>
 <div className="event-top padding15rem">
@@ -40,12 +89,12 @@ const Setting = () => {
   
     
   </tr>
-  {[...Array(4)]?.map((a)=>{
+  {Object.keys(data)?.map((a)=>{
 
     return <tr>
    <td><input type="checkbox"></input></td>
     <td><button className='themeButton' style={{background:"#F5F8FA",color:"#A1A5B7"}} onClick={()=>setEditModal(true)}>edit</button></td>
-    <td style={{width:"100%",}}><p style={{color:'#7E8299',fontSize:14}}>About Us</p></td>
+    <td style={{width:"100%",}}><p style={{color:'#7E8299',fontSize:14}}>{a}</p></td>
     <td style={{color:'#7E8299',fontSize:14}}>5 Nov 2022 - 12:44 PM</td>
     
   </tr>

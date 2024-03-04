@@ -1,5 +1,6 @@
 html  {
   margin:0;
+  font-size: 14px;
 
 }
 
@@ -108,22 +109,21 @@ justify-content:space-between;
 .form-input{
   flex:2;
 border:none;
-padding: 13px 13px 13px 16px;
-max-width: 600px;
+padding: 9px 11px 9px 11px;
 background: #F5F8FA;
 border-radius: 6px;
 font-weight: 500;
 font-size: 13px;
 line-height: 16px;
-border: 1px solid #d8e3e8;
+border: 1px solid transparent;
+color: #5E6278;
+max-width: 400px;
 
-color: #787e9d;
  
 }
 .form-input::placeholder{
-
-
-color: #B5B5C3;
+color: #A1A5B7;
+font-size: 12px;
  
 }
 .text-area::placeholder{
@@ -136,7 +136,7 @@ color: #B5B5C3;
   display: flex;
   justify-content:flex-start;
   align-items:center;
-  margin-bottom: 26px ;
+  margin-bottom: 35px ;
   grid-gap: 20px;
 }
 .inputwrapper span{
@@ -146,7 +146,7 @@ color: #B5B5C3;
 min-width: 35%;
 width: 35%;
  margin-bottom:0;
- font-size:14px;
+ font-size:13px;
  font-weight:500;
  color:rgb(63, 66, 84);;
  
@@ -154,7 +154,7 @@ width: 35%;
 
 .input-name{
 font-weight: 700 !important;
-font-size: 14px !important;
+font-size: 13px !important;
 }
 
 
@@ -189,16 +189,16 @@ select:focus{
 .text-area{
   flex:2;
   border:none;
-  padding: 13px 13px 13px 16px;
+  padding: 11px 11px 11px 11px;
   
   
   background: #F5F8FA;;
   border-radius: 6px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 16px;
   
-  color: #787e9d;
+  color: #5E6278;
  
 height: 10rem;
 width:100%;
@@ -222,12 +222,12 @@ width:100%;
 }
 .span-text-dark{
   line-height: 21px;
-  font-size: 14px;
+  font-size: 13px;
   color:#3F4254
 }
 .span-text-light{
 line-height: 21px;
-font-size: 14px;
+font-size: 13px;
 color:#B5B5C3
 }
 
@@ -238,37 +238,64 @@ color:#B5B5C3
   max-width: 1500px;
 }
 .span-box{
-  font-size:10px;
+  font-size:9px;
   color:#2884EF;
   background:#EEF6FF;
   border-radius:6px;
-  padding:6px 10px;
+  padding:4px 8px;
   height:fit-content;
   font-weight:600;
   letter-spacing:1px;
   width:fit-content;
+  max-width: 270px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .span-box-red{
-  font-size:10px;
+  font-size:9px;
   color:#F1416C;
   background:#FFF5F8;
   border-radius:6px;
-  padding:6px 10px;
+  padding:4px 8px;
   height:fit-content;
   font-weight:600;
   letter-spacing:1px;
   width:fit-content;
+  max-width: 270px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .span-box-green{
-  font-size:10px;
+  font-size:9px;
   color:#50CD89;;
   background:#E8FFF3;
   border-radius:6px;
-  padding:6px 10px;
+  padding:4px 8px;
   height:fit-content;
   font-weight:600;
   letter-spacing:1px;
   width:fit-content;
+  max-width: 270px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.span-box-yellow{
+  font-size:9px;
+  color:#F6C000;
+  background:#FFF8DD;
+  border-radius:6px;
+  padding:4px 8px;
+  height:fit-content;
+  font-weight:600;
+  letter-spacing:1px;
+  width:fit-content;
+  max-width: 270px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width:1200px) {

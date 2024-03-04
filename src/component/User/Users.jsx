@@ -1,11 +1,79 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PersonDetails from './PersonDetails';
+import { AuthContext } from '../../AuthProvider';
+import Toast from '../../Toast';
+import axios from '../../axios';
+import { toast } from 'react-toastify';
+
 
 
 const Users = () => {
+    const {state ,userToken,dispatch} = useContext(AuthContext)
+    const {UserData} = state
   const location = useLocation();
   const navigate = useNavigate()
+
+  const getdata = async()=>{
+    try{
+      
+      const response = await toast.promise(axios({
+        method: "get",
+        url: '/get_users',
+        headers:{
+        'Authorization': `Bearer ${userToken} `,
+        
+        },
+      }),
+      {
+        pending: 'waiting',
+        success: {render({data}){
+       const newdata = data?.data
+       
+       dispatch({type:'initialData',name:'UserData',data:newdata?.users})
+          return "user Details successfull"
+        }},
+        error: {render({data}){
+          
+          return data?.response?.data?.message
+        }},
+      });
+        
+    } catch (err) {
+      const error = err.response.data
+      Toast(error.message);
+      
+    }  
+  }
+  const deleteuser = async(id)=>{
+    try{
+      
+      const response = await axios({
+        method: "post",
+        url: '/delete_user',
+        data:{user_id:id},
+        headers:{
+        'Authorization': `Bearer ${userToken} `,
+        
+        },
+      })
+     
+        
+      if(response.status===200){
+        const data = response.data;
+
+        dispatch({type:'delete',name:'UserData',Id:id,idname:'id'})
+
+      }
+    } catch (err) {
+      const error = err.response.data
+      Toast(error.message);
+      
+    }  
+  }
+  useEffect(()=>{
+    getdata()
+  },[])
   return (
     <>
 <div className="event-top padding15rem">
@@ -40,9 +108,9 @@ Add User</button>
         </div>
 
 
-{[...Array(3)]?.map((a)=>{
+{UserData?.map((a)=>{
 
-return <PersonDetails />
+return a?.id==0 ? " " :<PersonDetails persondata={a} deleteuser={deleteuser}/>
 })}
 
 <div className='pagination between-div'>

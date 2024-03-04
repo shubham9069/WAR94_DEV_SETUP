@@ -1,8 +1,48 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { AuthContext } from '../../AuthProvider'
+import { useContext } from 'react'
+import { useState } from 'react'
+import axios from '../../axios'
+import Toast from '../../Toast'
+import { useEffect } from 'react'
 
-const Tournament_page = () => {
+
+const Tournament_page = ({status}) => {
+    const {state ,userToken,dispatch} = useContext(AuthContext)
     const location = useLocation()
+    const [data,setData] = useState([])
+    
+    const getData= async()=>{
+
+      
+        try{
+          
+          const response = await axios({
+            method: "get",
+            url: `/get_tournament_rooms?status=${status}`,
+            headers:{
+            'Authorization': `Bearer ${userToken} `,
+            
+            },
+          })
+         
+            
+          if(response.status===200){
+            const newdata = response.data;
+            setData(newdata?.games)
+              
+            
+          }
+        } catch (err) {
+          const error = err.response.data
+          Toast(error.message);
+          
+        }  
+      }
+      useEffect(()=>{
+        getData()
+      },[status])
   return (
    <>
  <div className="event-top padding15rem">
@@ -19,15 +59,16 @@ const Tournament_page = () => {
 </div>
     <div className='event-container' >
 
-        {[...Array(4)]?.map((a)=>{
+        {data?.map((a)=>{
 
-            return <Link to="/Tournament-details" className='event-box padding15rem' style={{textDecoration:'none'}}>
+            return <Link to={"/Tournament/"+a?.game_id}  key={a?.id} className='event-box padding15rem' style={{textDecoration:'none'}}>
          <div className='event-img-div'>   
-        <img src="images/eventgame.jpg"></img>
+        <img src={a?.dashboard_image} style={{objectFit:'contain'}}></img>
         
         </div>
         <div>
-        <span className='span-text-dark' style={{fontSize:16,flex: 1}}> BGMI</span>
+        <span className='span-text-dark' style={{fontSize:16,flex: 1}}>{a?.name}</span>
+        {/* {a?.tournament_status ? <span className="span-box-green" style={{marginLeft:10}}>completed</span> : <span className="span-box-yellow">not completed</span>} */}
         
     
         </div>

@@ -1,6 +1,105 @@
-import React from 'react'
 
-const Room_Tab2 = () => {
+import React from 'react'
+import Toast from '../../Toast'
+import { useContext } from 'react'
+import { AuthContext } from '../../AuthProvider'
+import axios from '../../axios'
+import { toast } from 'react-toastify';
+
+
+const Room_Tab2 = ({Roomdata,setData}) => {
+  const {userToken} = useContext(AuthContext)
+
+  async function uploadKill (e){
+   
+    const user_id=e.target.getAttribute("user_id")
+    var formData = new FormData();
+    if (e.target.value>=100){
+      Toast("100 kill is alowed per player ")
+      
+      return 
+    }
+    formData.append("room_id",user_id)
+    formData.append("kills",e.target.value)
+      try{
+        const response = await toast.promise(axios({
+          method: "post",
+          url: `/update_kills`,
+          data: formData,
+          headers:{
+          'Authorization': `Bearer ${userToken} `,
+            'Content-Type': 'multipart/form-data'
+          },
+        }),
+        {
+          pending: 'waiting',
+          success: {render({data}){
+         const newdata = data?.data
+
+         var Arr = Roomdata?.users?.map((elem)=>{
+
+          return elem?.id==user_id ? {...elem,kills:e.target.value}:elem
+         })
+         
+         setData({...Roomdata,users:Arr})
+
+            return newdata?.message
+          }},
+          error: {render({data}){
+            
+            return data?.response?.data?.message
+          }},
+        });
+  
+
+      } catch (err) {
+        console.log(err)
+        
+      }
+
+  }
+  async function DeleteUser (id,user_id){
+   
+    var formData = new FormData();
+    formData.append("room_id",id)
+    formData.append("user_id",user_id)
+      try{
+        const response = await toast.promise(axios({
+          method: "post",
+          url: `/delete_room_member`,
+          data: formData,
+          headers:{
+          'Authorization': `Bearer ${userToken} `,
+            'Content-Type': 'multipart/form-data'
+          },
+        }),
+        {
+          pending: 'waiting',
+          success: {render({data}){
+         const newdata = data?.data
+
+         var Arr = Roomdata?.users?.filter((elem)=>{
+
+          return elem?.id!=id 
+         })
+         
+         setData({...Roomdata,users:Arr})
+
+            return newdata?.message
+          }},
+          error: {render({data}){
+            
+            return data?.response?.data?.message
+          }},
+        });
+  
+
+      } catch (err) {
+        console.log(err)
+        
+      }
+
+  }
   return (
     <>
       <div className="matchlist-table">
@@ -13,25 +112,37 @@ const Room_Tab2 = () => {
     <th>Game Character</th>
     <th>game UserName</th>
     <th>Payment</th>
-    <th>Per Kill</th>
+    <th>Kill Update</th>
+    
   
     
   </tr>
-  {[...Array(4)]?.map((a)=>{
+  {Roomdata?.users?.map((a)=>{
 
-    return <tr>
+    return <tr key={a?.id}>
     <td>
-    <select className="form-input" style={{backgroundColor:'#F5F8FA',color:'#A1A5B7'}}>
-      <option selected>Active</option>
-    </select> 
+    <div className="dropdown">
+    <button className='themeButton dropdown-toggle' style={{background:"#F5F8FA",color:"#A1A5B7",}} data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+
+    <ul class="dropdown-menu post-dropdown">
+
+<li onClick={()=>DeleteUser(a?.id,a?.user_id)} >
+<p> Remove</p> 
+
+<i class="bi bi-trash-fill" style={{color:'#A1A5B7',fontSize:12,width:15}}></i>
+            
+    </li>   
+</ul>
+ </div>
     </td>
-    <td style={{color:'#7E8299',fontSize:14}}>auysh boys </td>
-    <td style={{color:'#7E8299',fontSize:14}}>@devil432</td>
-    <td style={{color:'#7E8299',fontSize:14}}>9868999004</td>
+
+    <td style={{color:'#7E8299',fontSize:14}}>{a?.user?.name}</td>
+    <td style={{color:'#7E8299',fontSize:14}}>{a?.user?.username}</td>
+    <td style={{color:'#7E8299',fontSize:14}}>{a?.user?.mobile}</td>
     <td style={{color:'#7E8299',fontSize:14}}>48564332116</td>
     <td style={{color:'#7E8299',fontSize:14}}>devilboy452</td>
     <td style={{color:'#7E8299',fontSize:14}}>Cash</td>
-    <td style={{color:'#7E8299',fontSize:14}}>₹10</td>
+    <td><input type='Number' className="form-input"  style={{width:60}} defaultValue={a?.kills} user_id={a?.id} onBlur={uploadKill}></input></td>
 
     
     

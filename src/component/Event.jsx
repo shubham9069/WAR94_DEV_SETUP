@@ -9,17 +9,24 @@ import { toast } from 'react-toastify';
 
 
 
-const Event = () => {
+const Event = ({Status_Active_InActive}) => {
   const {userToken,state,dispatch} = useContext(AuthContext)
   const location = useLocation()
   const {AllEvents} = state
+  const [EventArr,setEventArr] = useState([])
   const [eventData,setEventData] = useState({name:"",target:"",status:1,banner:"", event_detail:"",event_button_name:""});
   const {name,target,status,banner,event_detail,event_button_name} = eventData
     const [newEvent,setNewEvent] = useState(false)
     
     const [isLoadiing,setisLoading] = useState(true)
   const [editEventid,setEditEventid] = useState("")
-  const setAllEvent=""
+  
+  useEffect(()=>{
+    var arr = AllEvents?.filter(a=>a?.status==Status_Active_InActive)
+
+    setEventArr(arr)
+
+  },[Status_Active_InActive,state])
     const fileupload = (e)=>{
      
       var file_input = document.getElementById('uploadefile-event')
@@ -83,8 +90,6 @@ const Event = () => {
         }
   
     }
-
-
     
     const eventDelete = async(Id)=>{
   
@@ -289,16 +294,17 @@ New Event</button>
 </div>
     <div className='event-container' >
 
-        {AllEvents?.map((event)=>{
+        {EventArr?.map((event)=>{
 
             return <div className='event-box padding15rem'>
+            <input  type="checkbox" checked={event?.status} className='event-toggle' onChange={(e)=>e.target.checked ? gameEditStatus(1,event?.event_id): gameEditStatus(0,event?.event_id)}></input>
          <div className='event-img-div'>   
-        <img src={event?.banner}></img>
+        <img src={event?.banner} style={{objectFit:'contain'}}></img>
         
-        <input  type="checkbox" checked={event?.status} className='event-toggle' onChange={(e)=>e.target.checked ? gameEditStatus(1,event?.event_id): gameEditStatus(0,event?.event_id)}></input>
+
         </div>
         <div>
-        <span className='span-text-dark' style={{fontSize:16,flex: 1}}>{event?.name}</span>
+        <span className='span-text-dark' style={{fontSize:14,flex: 1}}>{event?.name}</span>
         
             <div className='event-icon' style={{backgroundColor:'#F3F6F9'}} onClick={()=>data(event)}>
             

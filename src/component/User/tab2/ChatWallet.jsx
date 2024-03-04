@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AuthContext } from '../../../AuthProvider'
+import { toast } from 'react-toastify'
+import axios from '../../../axios'
 
 
-const ChatWallet = () => {
+const ChatWallet = ({single_user,editpost}) => {
+ 
     const [tab,setTab] = useState(1)
+   
+
+    
   return (
     <>
 <div className="user-permission-tab padding15rem">
@@ -18,48 +25,56 @@ const ChatWallet = () => {
 </div>
 
 <div className='d-flex' style={{gridGap:20,margin:'1.5rem 0'}}>
-  {['Followers','Following','Blocked']?.map((a)=>{
-
-    return <div className=' dropdown-toggle' style={{cursor:'pointer',padding: '1rem',border: '1.04481px dashed rgb(228, 230, 239)', borderRadius: 6.26885,width:180}} data-bs-toggle="dropdown" aria-expanded="false">
+ <div className=' dropdown-toggle' style={{cursor:'pointer',padding: '1rem',border: '1.04481px dashed rgb(228, 230, 239)', borderRadius: 6.26885,width:180}} data-bs-toggle="dropdown" aria-expanded="false">
+    <p className='span-text-dark' style={{marginBottom:0,fontWeight:900,fontSize:18}}>{single_user?.followers}</p>
+            <span className='span-text-light'>Followers</span>
+    
+    </div>
+ <div className=' dropdown-toggle' style={{cursor:'pointer',padding: '1rem',border: '1.04481px dashed rgb(228, 230, 239)', borderRadius: 6.26885,width:180}} data-bs-toggle="dropdown" aria-expanded="false">
+    <p className='span-text-dark' style={{marginBottom:0,fontWeight:900,fontSize:18}}>{single_user?.following}</p>
+            <span className='span-text-light'>Following</span>
+    
+    </div>
+ <div className=' dropdown-toggle' style={{cursor:'pointer',padding: '1rem',border: '1.04481px dashed rgb(228, 230, 239)', borderRadius: 6.26885,width:180}} data-bs-toggle="dropdown" aria-expanded="false">
     <p className='span-text-dark' style={{marginBottom:0,fontWeight:900,fontSize:18}}>30</p>
-            <span className='span-text-light'>{a}</span>
+            <span className='span-text-light'>Blocking</span>
     
     </div>
   
-  })}
+ 
     
   </div>
 
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
                 <p className='span-text-dark' >Wallet</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2,fontSize:12}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.wallet_status} name="wallet_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
                 
                 </div>
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
                 <p className='span-text-dark' >Post</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2,fontSize:12}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.post_status} name="post_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}  ></input>Active</span>
                 
                 </div>
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
                 <p className='span-text-dark' >Comment</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2,fontSize:12}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.comment_status} name="comment_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}} ></input>Active</span>
                 
         </div>
   
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
                 <p className='span-text-dark' >World Chat</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2,fontSize:12}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.world_chat_status} name="world_chat_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
                 
         </div>
 
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
                 <p className='span-text-dark' >Group Chat</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2,fontSize:12}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>Active</span>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.group_chat_status} name="group_chat_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}} ></input>Active</span>
                 
          </div>
 
@@ -81,7 +96,7 @@ const ChatWallet = () => {
                 rahul 7112
                 </p>
                 
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.fb_status} name="fb_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}  ></input>
                 
      </div>
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
@@ -105,7 +120,7 @@ const ChatWallet = () => {
                 rahul 7112
                 </p>
                 
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>
+                <input  type="checkbox" className='event-toggle'  checked={single_user?.youtube_status} name="youtube_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}} ></input>
                 
      </div>
   <div className="inputwrapper" style={{margin:'2rem 0'}} >
@@ -139,7 +154,7 @@ const ChatWallet = () => {
                 rahul 7112
                 </p>
                 
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>
+                <input  type="checkbox" className='event-toggle' checked={single_user?.insta_status} name="insta_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}} ></input>
                 
      </div>
 

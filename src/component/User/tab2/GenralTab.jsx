@@ -1,9 +1,38 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form, Modal } from 'react-bootstrap'
+import { AuthContext } from '../../../AuthProvider'
+import axios from '../../../axios'
+import { toast } from 'react-toastify'
 
 
-const GenralTab = () => {
+const GenralTab = ({single_user,setSingle_user,editpost}) => {
+    const {userToken} = useContext(AuthContext)
+    const {
+        avatar,
+        bio,
+        country,
+        created_at,
+        date_of_birth,
+        email,
+        id,
+        is_gold_member,
+        kyc_status,
+        mobile,
+        name,
+        updated_at,
+        username,
+     
+        } = single_user
     const [updateModal,setupdateModal] = useState(false)
+    const [editDetails,seteditDetails] = useState({
+       
+        bio,
+        country,
+        email,
+        mobile,
+        name,
+        username,
+    })
 
     const fileupload = (e)=>{
      
@@ -11,13 +40,55 @@ const GenralTab = () => {
         
         file_input.click();
       }
+      
+      const handleinput =(e)=>{
+
+        seteditDetails({...editDetails,[e.target.name]:e.target.value})
+      }
+
+      
+  async function editUserData(){
+    var formData = new FormData()
+    
+    try{
+      const response = await toast.promise(axios({
+        method: "post",
+        url: `/update_user`,
+        data: {editDetails,user_id:single_user?.id},
+        headers:{
+        'Authorization': `Bearer ${userToken} `,
+          'Content-Type': 'multipart/form-data'
+        },
+      }),
+      {
+        pending: 'waiting',
+        success: {render({data}){
+       const newdata = data?.data
+       
+       setSingle_user({...single_user,...editDetails})
+   
+        
+          return newdata?.message
+        }},
+        error: {render({data}){
+          
+          return data?.response?.data?.message
+        }},
+      });
+  
+  
+    } catch (err) {
+      console.log(err)
+      
+    }
+  }
   return (
    <>
      <div className='tabinfo padding15rem'>
  <div className='between-div' style={{borderBottom:'1px solid #EFF2F5',paddingBottom:'1rem'}}>
 <h5 style={{fontWeight:900,color:'#3F4254',marginBottom:0}}>General</h5>
 <div className='d-flex' style={{gridGap:15}}>
-    <span className='span-text-light' style={{paddingBottom:'1rem'}}>Last  update - 1-10-2022 12:42 PM</span>
+    <span className='span-text-light' style={{paddingBottom:'1rem'}}>Last  update - {updated_at}</span>
     
 </div>
 </div>
@@ -26,7 +97,7 @@ const GenralTab = () => {
 <div className="inputwrapper">
               <p className='span-text-dark' >Profile pic</p>
         <div style={{position:'relative'}}  >
-          <img src="images/Users.png" style={{width:140,height:140,borderRadius:12}}></img>
+          <img src={editDetails?.avatar} style={{width:140,height:140,borderRadius:12}}></img>
 
           <div className="editpost-upload center-div" style={{bottom:10,top:'auto',left:'auto',right:-15,boxShadow:'0px 0px 10px rgba(74, 80, 102, 0.14)'}} onClick={fileupload} >
     <input type="file" hidden id="update-profile"></input>
@@ -52,53 +123,53 @@ const GenralTab = () => {
 
     <div className="inputwrapper">
                 <p className='span-text-dark' >Full Name <span className='span-text-light'>(orignal)</span></p>
-                <input className="form-input" placeholder=' Name'></input>
+                <input className="form-input" placeholder='Name' value={editDetails?.name} name="name" onChange={handleinput}></input>
     </div>
     <div className="inputwrapper">
                 <p className='span-text-dark' >User Name <span className='span-text-light'>(unique Id)</span></p>
-                <input className="form-input" placeholder=' Name'></input>
+                <input className="form-input"  value={editDetails?.username} name="username" onChange={handleinput}></input>
     </div>
-    <div className="inputwrapper">
+    {/* <div className="inputwrapper">
                 <p className='span-text-dark' >User Type <span className='span-text-light'>(admin/user)</span></p>
                 <select className="form-input" >
                     <option selcted hidden > user</option>
                 </select>
-    </div>
+    </div> */}
     <div className="inputwrapper" >
-                <p className='span-text-dark' >User verification</p>
+                <p className='span-text-dark' >User KYC Verification</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked ></input>Active</span>
+                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}} checked={kyc_status} name="kyc_status" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} ></input>Active</span>
                 
                 </div>
 
       <div className="inputwrapper" >
-                <p className='span-text-dark' >user Pro</p>
+                <p className='span-text-dark' >user Gold Member</p>
                 <span className='span-text-light d-flex align-items-center' style={{flex: 2}}>
-                <input  type="checkbox" className='event-toggle' style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
+                <input  type="checkbox" className='event-toggle'  checked={is_gold_member} name="is_gold_member" onChange={(e)=>editpost(e.target.name,e.target.checked ? 1:0)} style={{position:'relative',top:0,left:0,marginRight:8}}></input>Active</span>
            </div>          
 
            <div className="inputwrapper" style={{alignItems: 'flex-start'}}>
                 <p className='span-text-dark' >user Bio</p>
-                <textarea className="text-area" placeholder='Event Name'></textarea>
+                <textarea className="text-area" placeholder='User Bio' value={editDetails?.bio} name="bio" onChange={handleinput}></textarea>
             </div>
             <div className="inputwrapper">
                 <p className='span-text-dark' >DOB</p>
-                <input className="form-input" placeholder='18 aprl,2001'></input>
+                <input type="text" className="form-input" value={date_of_birth} ></input>
           </div> 
             <div className="inputwrapper">
                 <p className='span-text-dark' >Email Id</p>
-                <input className="form-input" placeholder='Shubhamkauhsik@gmail.com'></input>
+                <input className="form-input" value={editDetails?.email} name='email' onChange={handleinput} ></input>
           </div> 
             <div className="inputwrapper">
                 <p className='span-text-dark' >Country</p>
-                <input className="form-input" placeholder='India'></input>
+                <input className="form-input" value={editDetails?.country} name="country" onChange={handleinput}></input>
           </div> 
             <div className="inputwrapper">
                 <p className='span-text-dark' >Joined Date</p>
-                <input className="form-input" placeholder='28/12/2001'></input>
+                <input className="form-input" value={new Date(created_at).formate}></input>
           </div> 
           
-          <button className='themeButton' style={{margin:'0 0 0 auto'}} onClick={()=>setupdateModal(true)}> Update</button>
+          <button type="button" className='themeButton' style={{margin:'0 0 0 auto'}} onClick={()=>setupdateModal(true)}> Update</button>
 </form>
 
 
@@ -135,7 +206,7 @@ const GenralTab = () => {
       </Form.Group>
 
 <div className='d-flex justify-content-end' style={{gridGap:20,padding:'1rem 0'}}>
-    <button className="themeButton">Save Changes </button>
+    <button className="themeButton" onClick={editUserData}>Save Changes </button>
     <button className="themeButton" style={{color:'#3E97FF',backgroundColor:'#EEF6FF',borderColor:'transparent'}} onClick={()=>setupdateModal(false)}>Cancel</button>
 </div>
 

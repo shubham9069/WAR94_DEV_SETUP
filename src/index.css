@@ -13,7 +13,43 @@
  
     
     }
+    .loader-gif{
+        position: fixed;
+        top: 0;left: 0;
+        height:100%;
+        width:100%;
+        z-index: 111;
+        background-color: #fdfdfd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .messageFile-a{
+        text-decoration:none;
+        display:flex;
+        grid-gap:10px;
+        color:#585252;
+    }
+    .messageFile-a> svg{
+       min-width:30px;
+       object-fit: cover;
+    }
  
+    #fullpage {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: contain;
+        background-repeat: no-repeat no-repeat;
+        background-position: center center;
+        background-color: #00000096;
+      
+      }
   
  
    

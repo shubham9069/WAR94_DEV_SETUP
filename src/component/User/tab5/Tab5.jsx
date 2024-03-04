@@ -1,13 +1,43 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap';
 import PostTab1 from './PostTab1';
 import PostTab2 from './PostTab2';
+import axios from '../../../axios';
+import Toast from '../../../Toast';
+import { AuthContext } from '../../../AuthProvider';
 
 
-const Tab5 = () => {
+const Tab5 = ({single_user,}) => {
+  const {userToken} = useContext(AuthContext)
     const [tab,setTab]=useState(1);
+    const [posts,setposts] = useState([])
    
-   
+    const getpost = async()=>{
+      try{
+        
+        const response = await axios({
+          method: "get",
+          url: `/get-all?user_id=${single_user?.id}`,
+          headers:{
+          'Authorization': `Bearer ${userToken} `,
+          
+          },
+        })
+       
+          
+        if(response.status===200){
+          const data = response.data;
+          setposts(data?.posts)
+        }
+      } catch (err) {
+        const error = err.response.data
+        Toast(error.message);
+        
+      }  
+    }
+    useEffect(()=>{
+      getpost()
+    },[])
   
   return (
     <>
@@ -27,8 +57,10 @@ const Tab5 = () => {
     
     <div className="tab5-container">
     
-    {tab==1 &&(<PostTab1/>)}
-    {tab==2 &&(<PostTab2/>)}
+    {tab==1 &&(<PostTab1 posts={posts} single_user={single_user} setposts={setposts} />)}
+    {tab==2 &&(<PostTab2  single_user={single_user} URL="/get-followers"/>)}
+    {tab==3 &&(<PostTab2  single_user={single_user} URL="/get-followings"/>)}
+    {tab==4 &&(<PostTab2   single_user={single_user} URL="/get_blocked_users" />)}
     </div>
 
 
