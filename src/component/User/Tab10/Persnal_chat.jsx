@@ -33,7 +33,7 @@ const Persnal_chat = () => {
     
     <div >
             <div style={{padding:'1.5rem'}}>
-     <p style={{marginBottom:0}}>Rahul Kumar</p>   
+     <p style={{marginBottom:0}}>Shubham Kauhsik</p>   
      <p style={{fontSize:12,color:'#B5B5C3',marginBottom:0}}>offline - last seen today 9:18 pm</p>  
      </div>      
             <div style={{overflow:'scroll',height:600,padding:'1.5rem'}}>
@@ -42,8 +42,8 @@ const Persnal_chat = () => {
 return<div className='rigth-chat-box ' style={{margin:i%2==0 ? '1rem 0 1rem auto': '1rem 0 1rem 0' ,width:'fit-content',maxWidth:400}}>
 
 <div className='d-flex align-items-center' style={{gridGap:8 ,justifyContent:i%2==0? "flex-end":"flex-start"}}>
-        <img src="images/users.png" alt=""style={{width:40,height:40,borderRadius:50}}></img> 
-        <span style={{fontWeight:'bold',lineHeight:'25px',marginBottom:0,fontSize:12}}>Sonu Sood </span>
+    <img src={i % 2 == 0 ? "images/logo.png" : "images/users.png"} alt=""style={{width:40,height:40,borderRadius:50}}></img> 
+    <span style={{ fontWeight: 'bold', lineHeight: '25px', marginBottom: 0, fontSize: 12 }}>{i % 2 == 0 ? "Admin" : "Shubham"} </span>
         <span style={{fontSize:10,color:'#B5B5C3',fontWeight:500}}>20 hrs</span>
       
 </div>

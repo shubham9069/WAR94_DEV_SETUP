@@ -37,7 +37,7 @@ const Tab2 = ({single_user,setSingle_user}) => {
        
        setSingle_user({...single_user,[name]:value})
    
-        
+
           return newdata?.message
         }},
         error: {render({data}){

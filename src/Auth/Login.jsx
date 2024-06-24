@@ -8,8 +8,8 @@ import {  toast } from 'react-toastify';
 const Login = () => {
   const navigate = useNavigate()
   const {setUserData,setUserToken} = useContext(AuthContext)
-  const [email,setEmail] = useState("")
-  const [Password,setPassword] = useState("")
+  const [email, setEmail] = useState("superadmin@war94.com")
+  const [Password, setPassword] = useState("lJrZKAVTX0")
 
 
   const LoginForm = async(e)=>{
@@ -71,8 +71,8 @@ const Login = () => {
 <form className="center-div mx-auto" style={{flexDirection:'column',width:'80%',maxWidth:500}} onSubmit={LoginForm}>
 <h5 style={{fontWeight:900}}>Sign In</h5>
 <p className="span-text-light" style={{marginBottom:36}}>War94 Gaming Pvt Ltd</p>
-<input  type="email" className="form-input" placeholder="Email" style={{border: '1px solid #E4E6EF',width: '100%',marginBottom:18}} onChange={(e)=>setEmail(e.target.value)} ></input>
-<input type="password" className="form-input" placeholder="Password" style={{border: '1px solid #E4E6EF',width: '100%',marginBottom:36}} onChange={(e)=>setPassword(e.target.value)} ></input>
+<input  type="email" className="form-input" placeholder="Email" style={{border: '1px solid #E4E6EF',width: '100%',marginBottom:18}} value={email} onChange={(e)=>setEmail(e.target.value)} ></input>
+<input type="password" className="form-input" placeholder="Password" style={{border: '1px solid #E4E6EF',width: '100%',marginBottom:36}} value={Password} onChange={(e)=>setPassword(e.target.value)} ></input>
 <button type="submit" className='themeButton' style={{width:'100%' ,marginBottom:'2rem'}}>Login Now</button>
 <p className='span-text-light'>Forget Password ? <Link to='/forget' style={{color:'#3E97FF',textDecoration:'none'}}>Forget Now</Link></p>
 </form>

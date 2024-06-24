@@ -1,51 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { AuthContext } from '../../AuthProvider'
-import axios from '../../axios'
 import { useState } from 'react'
-import { useContext } from 'react'
-import { useEffect } from 'react'
-import Toast from '../../Toast'
-import Tab5 from '../User/tab5/Tab5'
-import { motion } from 'framer-motion'
-import PersonDetails from '../User/PersonDetails'
 import PostTab1 from '../User/tab5/PostTab1'
+import { userDataDummy, userTabData } from '../../dummydata/DummyData'
+import { use } from 'echarts'
 
 
 const Postview = () => {
-    const location = useLocation()
-    const {id} = useParams()
-
-    const {userToken} = useContext(AuthContext)
     const [post,setPost] = useState([])
-  
-  const getdata = async()=>{
-    try{
-      
-      const response = await axios({
-        method: "get",
-        url: `get-post?post_id=${id}`,
-        headers:{
-        'Authorization': `Bearer ${userToken} `,
-        
-        },
-      })
-      if(response.status==200){
-        
-        setPost([response?.data?.post])
-      }
-    
-        
-    } catch (err) {
-      const error = err.response.data
-      Toast(error.message);
-      
-    }  
-  }
-  useEffect(()=>{
 
-getdata();
-  },[])
+    useEffect(()=>{
+      let lastpostIdx = userTabData.tab5.postData.length-1
+      let postObj = {}
+      postObj = userTabData.tab5.postData[lastpostIdx]
+      postObj["post_owner"] = userDataDummy[0]
+      setPost([postObj])
+    },[])
   return (
     <>
     {!post.length ? "" : 

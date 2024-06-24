@@ -18,7 +18,7 @@ const AuthProvider = ({children}) => {
       AllGames:[],
       AllEvents:[],
       TournamnetData:[],
-      UserData:[]
+      UserData: []
     }
     const [state, dispatch] = useReducer(reducer, initialState);
     

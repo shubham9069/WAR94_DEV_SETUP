@@ -223,12 +223,14 @@ width:100%;
 .span-text-dark{
   line-height: 21px;
   font-size: 13px;
-  color:#3F4254
+  color:#3F4254;
+  cursor: pointer;
 }
 .span-text-light{
 line-height: 21px;
 font-size: 13px;
-color:#B5B5C3
+color:#B5B5C3;
+cursor: pointer;
 }
 
 .max-width-2000px{
@@ -296,6 +298,20 @@ color:#B5B5C3
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.dropdown-default{
+padding: 10px 16px !important;
+cursor: pointer;
+border: 1.5px solid transparent !important;
+font-size: 12px !important;
+font-style: normal;
+font-weight: 500;
+width: fit-content;
+border-radius: 6px;
+white-space: nowrap;
+background-color: #F5F8FA !important;
+color: #A1A5B7 !important;
 }
 
 @media screen and (max-width:1200px) {

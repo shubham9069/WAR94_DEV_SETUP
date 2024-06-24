@@ -3,42 +3,13 @@ import PostTab1 from '../User/tab5/PostTab1'
 import { useContext } from 'react'
 import { AuthContext } from '../../AuthProvider'
 import { useState } from 'react'
-import axios from '../../axios'
-import Toast from '../../Toast'
-import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { userTabData } from '../../dummydata/DummyData'
 
 const Posts = () => {
   const location = useLocation()
-    const {userToken} = useContext(AuthContext)
-    const [posts,setposts] = useState([])
-   
-    const getpost = async()=>{
-      try{
-        
-        const response = await axios({
-          method: "get",
-          url: `/get_all_posts`,
-          headers:{
-          'Authorization': `Bearer ${userToken} `,
-          
-          },
-        })
-       
-          
-        if(response.status===200){
-          const data = response.data;
-          setposts(data?.posts)
-        }
-      } catch (err) {
-        const error = err.response.data
-        Toast(error.message);
-        
-      }  
-    }
-    useEffect(()=>{
-      getpost()
-    },[])
+  
+  const [posts, setposts] = useState(userTabData.tab5.postData)
   return (
     <>
       <div className="event-top padding15rem">

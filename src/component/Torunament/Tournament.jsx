@@ -82,7 +82,7 @@ const User = ({Status_Active_InActive,type}) => {
             <Link to="/AddTournament" className='themeButton link-a' style={{backgroundColor:' #47BE7D',border:'1px solid #47BE7D'}}>Add Tournament</Link>
         </div>
 
-        {TorunamentArr?.map((item)=>{
+        { TorunamentArr?.length ? TorunamentArr?.map((item)=>{
 
             return <div className="userList">
         <img src={item?.tournament_image} style={{width:150,height:120,borderRadius:12,objectFit:'cover',alignSelf:'center'}}></img>
@@ -116,7 +116,7 @@ const User = ({Status_Active_InActive,type}) => {
         </div>
 
         </div>
-        })}
+        }) : <div>No tournament found !!!!</div>}
         <div className='pagination between-div'>
         <span className='span-text-dark' style={{color:'#5E6278'}}>Showing 1 to 10 of 50 entries</span>
         <div>
